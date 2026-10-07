@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond Heaven | Guest Bill &amp; Booking Voucher</title>
+
+  <!-- Single font family used throughout the document -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ APP SHELL ============ -->
+  <div class="app">
+
+    <!-- ============ FORM PANEL (hidden on print) ============ -->
+    <section class="panel no-print" aria-label="Bill generation form">
+      <header class="panel__header">
+        <p class="panel__eyebrow">Beyond Heaven &mdash; Billing Desk</p>
+        <h1 class="panel__title">Generate Guest Bill</h1>
+        <p class="panel__sub">Fill in the booking details below. The voucher preview updates live.</p>
+      </header>
+
+      <form id="bill-form" class="form" novalidate>
+
+        <!-- Booking Information -->
+        <fieldset class="form__group">
+          <legend>Booking Information</legend>
+
+          <div class="field">
+            <label for="bookingId">Booking ID</label>
+            <input type="text" id="bookingId" name="bookingId" placeholder="Auto-generated if left blank" />
+          </div>
+
+          <div class="field">
+            <label for="bookingDate">Booking Date</label>
+            <input type="date" id="bookingDate" name="bookingDate" />
+          </div>
+
+          <div class="field">
+            <label for="bookingStatus">Booking Status</label>
+            <select id="bookingStatus" name="bookingStatus">
+              <option value="Confirmed" selected>Confirmed</option>
+              <option value="Pending">Pending</option>
+              <option value="Checked In">Checked In</option>
+              <option value="Checked Out">Checked Out</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bookingSource">Booking Source</label>
+            <select id="bookingSource" name="bookingSource">
+              <option value="Direct" selected>Direct</option>
+              <option value="Website">Website</option>
+              <option value="Phone">Phone</option>
+              <option value="Walk-in">Walk-in</option>
+              <option value="MakeMyTrip">MakeMyTrip</option>
+              <option value="Booking.com">Booking.com</option>
+              <option value="Goibibo">Goibibo</option>
+              <option value="Agent / Referral">Agent / Referral</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Guest Information -->
+        <fieldset class="form__group">
+          <legend>Guest Information</legend>
+
+          <div class="field">
+            <label for="guestName">Full Name</label>
+            <input type="text" id="guestName" name="guestName" placeholder="e.g. Arjun Mehta" />
+          </div>
+
+          <div class="field">
+            <label for="guestPhone">Phone Number</label>
+            <input type="tel" id="guestPhone" name="guestPhone" placeholder="e.g. +91 98765 43210" />
+          </div>
+
+          <div class="field">
+            <label for="guestEmail">Email Address</label>
+            <input type="email" id="guestEmail" name="guestEmail" placeholder="e.g. guest@email.com" />
+          </div>
+        </fieldset>
+
+        <!-- Stay Details -->
+        <fieldset class="form__group">
+          <legend>Stay Details</legend>
+
+          <div class="field">
+            <label for="checkIn">Check-in Date</label>
+            <input type="date" id="checkIn" name="checkIn" />
+          </div>
+
+          <div class="field">
+            <label for="checkOut">Check-out Date</label>
+            <input type="date" id="checkOut" name="checkOut" />
+          </div>
+
+          <div class="field">
+            <label for="nights">Number of Nights</label>
+            <input type="number" id="nights" name="nights" min="0" placeholder="Auto-calculated" readonly />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="adults">Adults</label>
+              <input type="number" id="adults" name="adults" min="0" value="2" />
+            </div>
+            <div class="field">
+              <label for="children">Children</label>
+              <input type="number" id="children" name="children" min="0" value="0" />
+            </div>
+            <div class="field">
+              <label for="extraBeds">Extra Beds</label>
+              <input type="number" id="extraBeds" name="extraBeds" min="0" value="0" />
+            </div>
+          </div>
+
+          <p class="field-error" id="date-error" hidden>Check-out date cannot be before check-in date.</p>
+        </fieldset>
+
+        <!-- Accommodation -->
+        <fieldset class="form__group">
+          <legend>Accommodation</legend>
+
+          <div class="field">
+            <label for="roomType">Room Type</label>
+            <input type="text" id="roomType" name="roomType" placeholder="e.g. Deluxe Room" />
+          </div>
+
+          <div class="field">
+            <label for="propertyName">Resort / Property Name</label>
+            <input type="text" id="propertyName" name="propertyName" value="Beyond Heaven Resort" />
+          </div>
+
+          <div class="field">
+            <label for="mealPlan">Meal Plan</label>
+            <select id="mealPlan" name="mealPlan">
+              <option value="EP">EP &ndash; Room Only</option>
+              <option value="CP" selected>CP &ndash; Breakfast Included</option>
+              <option value="MAP">MAP &ndash; Breakfast &amp; One Meal</option>
+              <option value="AP">AP &ndash; All Meals Included</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="roomRate">Room Rate (per night)</label>
+            <input type="number" id="roomRate" name="roomRate" min="0" placeholder="e.g. 6000" />
+          </div>
+        </fieldset>
+
+        <!-- Payment Information -->
+        <fieldset class="form__group">
+          <legend>Payment Information</legend>
+
+          <div class="field">
+            <label for="totalAmount">Total Amount</label>
+            <input type="number" id="totalAmount" name="totalAmount" min="0" placeholder="e.g. 6000" />
+          </div>
+
+          <div class="field">
+            <label for="advancePaid">Advance Paid</label>
+            <input type="number" id="advancePaid" name="advancePaid" min="0" value="0" />
+          </div>
+
+          <div class="field">
+            <label for="balanceDue">Balance Due</label>
+            <input type="text" id="balanceDue" name="balanceDue" placeholder="Auto-calculated" readonly />
+          </div>
+        </fieldset>
+
+        <!-- Additional Information -->
+        <fieldset class="form__group">
+          <legend>Additional Information</legend>
+
+          <div class="field">
+            <label for="specialNotes">Special Notes</label>
+            <textarea id="specialNotes" name="specialNotes" rows="3" placeholder="Optional remarks for the guest bill"></textarea>
+          </div>
+
+          <div class="field field--checkbox">
+            <label for="showSignature">
+              <input type="checkbox" id="showSignature" name="showSignature" checked />
+              Include guest signature line
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Action Buttons -->
+        <div class="form__actions">
+          <button type="submit" class="btn btn--primary" id="generateBtn">Generate Bill</button>
+          <button type="button" class="btn btn--outline" id="printBtn">Print Bill</button>
+          <button type="button" class="btn btn--outline" id="pdfBtn">Download PDF</button>
+          <button type="button" class="btn btn--ghost" id="clearBtn">Clear Form</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ BILL PREVIEW (visible on print) ============ -->
+    <section class="preview-wrap" aria-label="Bill preview">
+      <div class="a4-page" id="bill">
+
+        <!-- HEADER -->
+        <header class="bill__header">
+          <p class="bill__resort-name">BEYOND HEAVEN</p>
+          <p class="bill__resort-sub">LUXURY RESORT &amp; STAYS</p>
+          <div class="bill__hr"></div>
+          <p class="bill__doc-title">Guest Bill / Booking Voucher</p>
+
+          <div class="bill__meta">
+            <div class="bill__meta-item">
+              <span class="label">Booking ID</span>
+              <span class="value" id="out-bookingId"></span>
+            </div>
+            <div class="bill__meta-item bill__meta-item--right">
+              <span class="label">Booking Date</span>
+              <span class="value" id="out-bookingDate"></span>
+            </div>
+          </div>
+        </header>
+
+        <!-- GUEST INFORMATION -->
+        <section class="bill__section">
+          <h2 class="bill__section-title">Guest Information</h2>
+          <div class="bill__cols">
+            <div class="bill__col">
+              <span class="label">Full Name</span>
+              <span class="value" id="out-guestName"></span>
+            </div>
+            <div class="bill__col">
+              <span class="label">Phone Number</span>
+              <span class="value" id="out-guestPhone"></span>
+            </div>
+            <div class="bill__col">
+              <span class="label">Email Address</span>
+              <span class="value" id="out-guestEmail"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOOKING INFORMATION -->
+        <section class="bill__section">
+          <h2 class="bill__section-title">Booking Information</h2>
+          <div class="bill__cols">
+            <div class="bill__col">
+              <span class="label">Booking Status</span>
+              <span class="value" id="out-bookingStatus"></span>
+            </div>
+            <div class="bill__col">
+              <span class="label">Booking Source</span>
+              <span class="value" id="out-bookingSource"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- STAY DETAILS -->
+        <section class="bill__section">
+          <h2 class="bill__section-title">Stay Details</h2>
+          <div class="bill__stay-grid">
+            <div class="bill__stay-item">
+              <span class="label">Check In</span>
+              <span class="value value--lg" id="out-checkIn"></span>
+            </div>
+            <div class="bill__stay-item">
+              <span class="label">Check Out</span>
+              <span class="value value--lg" id="out-checkOut"></span>
+            </div>
+            <div class="bill__stay-item">
+              <span class="label">Duration</span>
+              <span class="value value--lg" id="out-duration"></span>
+            </div>
+            <div class="bill__stay-item">
+              <span class="label">Guests</span>
+              <span class="value value--lg" id="out-guests"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACCOMMODATION & PAYMENT -->
+        <section class="bill__section">
+          <h2 class="bill__section-title">Accommodation &amp; Payment</h2>
+          <div class="bill__table-scroll">
+            <table class="bill__table">
+              <thead>
+                <tr>
+                  <th>Accommodation</th>
+                  <th>Property</th>
+                  <th>Meal Plan</th>
+                  <th class="align-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="out-roomType"></td>
+                  <td id="out-propertyName"></td>
+                  <td id="out-mealPlan"></td>
+                  <td class="align-right" id="out-totalAmount"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bill__payment">
+            <div class="bill__payment-row">
+              <span>Advance Paid</span>
+              <span id="out-advancePaid"></span>
+            </div>
+            <div class="bill__payment-row bill__payment-row--due">
+              <span>Balance Due</span>
+              <span id="out-balanceDue"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SPECIAL NOTES -->
+        <section class="bill__section bill__section--notes" id="notes-section" hidden>
+          <h2 class="bill__section-title">Special Notes</h2>
+          <p class="bill__notes" id="out-specialNotes"></p>
+        </section>
+
+        <!-- FOOTER / SIGNATURE -->
+        <footer class="bill__footer">
+          <div class="bill__signatures" id="signature-block">
+            <div class="bill__signature">
+              <div class="bill__signature-line"></div>
+              <span class="label">Guest Signature</span>
+            </div>
+            <div class="bill__signature">
+              <div class="bill__signature-line"></div>
+              <span class="label">Authorized Signatory</span>
+            </div>
+          </div>
+
+          <div class="bill__hr"></div>
+
+          <p class="bill__brand-footer">BEYOND HEAVEN</p>
+          <p class="bill__thanks">Thank you for choosing Beyond Heaven.</p>
+        </footer>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+/* =========================================================
+   BEYOND HEAVEN — Guest Bill / Booking Voucher
+   Strictly black & white, premium editorial styling.
+   ========================================================= */
+
+:root {
+  --ink: #111111;
+  --ink-soft: #4a4a4a;
+  --ink-faint: #8a8a8a;
+  --line: #1a1a1a;
+  --line-soft: #d8d8d8;
+  --paper: #ffffff;
+  --panel-bg: #f6f6f4;
+
+  --font-sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--panel-bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, fieldset, legend {
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   APP SHELL — form panel + preview side by side on desktop
+   ========================================================= */
+
+.app {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  align-items: start;
+  min-height: 100vh;
+}
+
+/* =========================================================
+   FORM PANEL
+   ========================================================= */
+
+.panel {
+  background: var(--paper);
+  border-right: 1px solid var(--line-soft);
+  padding: 40px 32px 60px;
+  height: 100vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+}
+
+.panel__header {
+  margin-bottom: 32px;
+}
+
+.panel__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+
+.panel__title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.panel__sub {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* --- form groups --- */
+
+.form__group {
+  border: none;
+  border-top: 1px solid var(--line-soft);
+  padding: 22px 0;
+}
+
+.form__group legend {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 14px;
+  padding: 0;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.field-row .field {
+  margin-bottom: 0;
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  padding: 9px 10px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--ink);
+}
+
+.field input[readonly] {
+  background: var(--panel-bg);
+  color: var(--ink-soft);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field--checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: none;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.field--checkbox input {
+  width: auto;
+  accent-color: var(--ink);
+}
+
+.field-error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--ink);
+  border-left: 2px solid var(--ink);
+  padding-left: 8px;
+}
+
+/* --- action buttons --- */
+
+.form__actions {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1 1 auto;
+  min-width: 120px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--primary:hover {
+  background: #000000;
+}
+
+.btn--outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--ghost {
+  border-color: var(--line-soft);
+  color: var(--ink-soft);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* =========================================================
+   PREVIEW WRAP + A4 PAGE
+   ========================================================= */
+
+.preview-wrap {
+  padding: 48px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.a4-page {
+  background: var(--paper);
+  width: 210mm;
+  min-height: 297mm;
+  padding: 18mm 16mm;
+  box-shadow: 0 0 0 1px var(--line-soft), 0 20px 60px rgba(0, 0, 0, 0.08);
+  color: var(--ink);
+}
+
+/* =========================================================
+   BILL HEADER
+   ========================================================= */
+
+.bill__header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.bill__resort-name {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.bill__resort-sub {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.bill__hr {
+  height: 1px;
+  background: var(--line);
+  margin: 18px 0;
+}
+
+.bill__doc-title {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.bill__meta {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.bill__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bill__meta-item--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* =========================================================
+   SHARED LABEL / VALUE STYLES
+   ========================================================= */
+
+.label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.value {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 3px;
+}
+
+.value--lg {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* =========================================================
+   BILL SECTIONS
+   ========================================================= */
+
+.bill__section {
+  margin-bottom: 26px;
+}
+
+.bill__section-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+.bill__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Stay details grid */
+
+.bill__stay-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.bill__stay-item {
+  border-left: 1px solid var(--line-soft);
+  padding-left: 14px;
+}
+
+/* =========================================================
+   ACCOMMODATION TABLE
+   ========================================================= */
+
+.bill__table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bill__table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.bill__table thead th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.bill__table tbody td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  vertical-align: top;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* Payment summary */
+
+.bill__payment {
+  margin-top: 16px;
+  margin-left: auto;
+  width: min(280px, 100%);
+}
+
+.bill__payment-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.bill__payment-row--due {
+  border-bottom: none;
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+  padding-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+/* Special notes */
+
+.bill__notes {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   FOOTER / SIGNATURES
+   ========================================================= */
+
+.bill__footer {
+  margin-top: 40px;
+}
+
+.bill__signatures {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 24px;
+}
+
+.bill__signature {
+  flex: 1;
+  text-align: center;
+}
+
+.bill__signature-line {
+  height: 50px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+
+.bill__brand-footer {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  letter-spacing: 0.2em;
+  margin-top: 18px;
+}
+
+.bill__thanks {
+  text-align: center;
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   RESPONSIVE — tablet / mobile
+   ========================================================= */
+
+/* Prevent any element from forcing horizontal page scroll on phones */
+html, body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 1024px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .preview-wrap {
+    padding: 32px 16px 60px;
+  }
+
+  .a4-page {
+    width: 100%;
+    max-width: 210mm;
+    min-height: auto;
+    padding: 10mm 8mm;
+  }
+
+  /* 16px avoids iOS Safari auto-zooming into fields on focus */
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 28px 20px 40px;
+  }
+
+  .panel__title {
+    font-size: 24px;
+  }
+
+  .preview-wrap {
+    padding: 24px 12px 48px;
+  }
+
+  .a4-page {
+    padding: 8mm 5mm;
+  }
+
+  .bill__resort-name {
+    font-size: 28px;
+    letter-spacing: 0.08em;
+  }
+
+  .bill__resort-sub {
+    letter-spacing: 0.2em;
+  }
+
+  .bill__cols {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .bill__stay-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
+  }
+
+  .value--lg {
+    font-size: 20px;
+  }
+
+  .bill__meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bill__meta-item--right {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .bill__signatures {
+    gap: 20px;
+  }
+
+  .bill__signature-line {
+    height: 40px;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .form__actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .bill__resort-name {
+    font-size: 24px;
+  }
+
+  .bill__stay-grid {
+    gap: 14px 16px;
+  }
+
+  .bill__payment-row--due {
+    font-size: 18px;
+  }
+}
+
+/* =========================================================
+   PRINT — only the A4 bill should appear
+   ========================================================= */
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  html, body {
+    background: var(--paper);
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .app {
+    display: block;
+  }
+
+  .preview-wrap {
+    padding: 0;
+    display: block;
+  }
+
+  .a4-page {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Printing (even from a phone) should always lay the table out
+     at full A4 width, never the narrow mobile scroll width */
+  .bill__table-scroll {
+    overflow: visible;
+  }
+
+  .bill__table {
+    min-width: 0;
+  }
+
+  .bill__section {
+    break-inside: avoid;
+  }
+
+  .bill__signatures {
+    break-inside: avoid;
+  }
+}
